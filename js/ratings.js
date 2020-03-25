@@ -6,24 +6,23 @@ function collect_ratings() {
     };
 
     let rating = 0;
+    const elements = document.querySelectorAll('.rating');
+
+    elements.forEach(element => {
+        rating = parseInt(element.id.replace('star', ''));
+        ratings.count += parseInt(element.value);
+        ratings.sum += parseInt(element.value) * rating;
+    });
+
+    if (ratings.count !== 0) {
+        ratings.average = ratings.sum / ratings.count;
+    }    
+
+    return ratings;
+
 }
 
 document.addEventListener('change', (e) => {
     const ratings = collect_ratings();
-    ratings.average = document.querySelector("average");
+    document.querySelector('#average').value = ratings.average.toFixed(2);    
 });
-
-const elements = document.querySelectorAll("rating");
-
-elements.forEach(element => {
-    element.id.replace('');
-    let rating = parseInt(element.id);
-    ratings.count += element.count.parseInt();
-    ratings.sum += element.sum.parseInt() * rating;
-});
-
-if (ratings.count != 0) {
-    ratings.average = sum / count;
-    return collect_ratings(ratings);
-}
-
